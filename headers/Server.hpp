@@ -13,13 +13,14 @@
 #include <iostream>          // debugging only
 #include <csignal>           // signal(SIGPIPE, SIG_IGN)
 #include <exception>
+ #include <stdio.h>
 #include "Client.hpp"
 
 class Server
 {
 	private:
 		int socket_fd;
-		std::vector<int> poll_fds;
+		std::vector<struct pollfd> poll_fds;
 		std::map<int, Client>  clients;
 		struct addrinfo hints, *res;
 		socklen_t	addr_size;
@@ -27,5 +28,6 @@ class Server
 		Server();
 		void Get_socket();
 		void error(int status);
+		void acceptnewclient();
 		void run();
 };

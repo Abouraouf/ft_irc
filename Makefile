@@ -1,5 +1,5 @@
 NAME =  irc
-SOURCES = main.cpp srcs/Server.cpp
+SOURCES = main.cpp srcs/Server.cpp srcs/Client.cpp
 FLAGS = -Wall -Wextra -Werror -std=c++98
 OBJ = $(SOURCES:.cpp=.o)
 HEADER = headers/Server.hpp headers/Client.hpp 
