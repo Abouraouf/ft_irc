@@ -1,5 +1,6 @@
 #include "../headers/Server.hpp"
 //handle the eof
+// do the destructor
 Server::Server(){}
 
 void Server::Get_socket()
@@ -57,10 +58,6 @@ void Server::run()
         }
 
         for (size_t i = 1; i < poll_fds.size(); ++i) {
-            if (poll_fds[i].revents & POLLIN) {
-                int fd = poll_fds[i].fd;
-				std::cout << fd << std::endl;             
-            }
 			if (poll_fds[i].revents & POLLIN) {
     		char buf[512];
     		int fd = poll_fds[i].fd;
@@ -75,7 +72,7 @@ void Server::run()
     		    buf[n] = '\0';
     		    std::cout << "Client " << fd << " sent: " << buf << std::endl;
     		}
-}
+			}
         }
 		
     }
