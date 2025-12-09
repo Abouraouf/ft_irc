@@ -17,19 +17,22 @@
  #include <cstdlib>
 #include "Client.hpp"
 
+#include <csignal>
+#include <iostream>
+
 class Server
 {
 	private:
 		std::string name;
 		std::string password;
-		uint16_t 	port;
+		std::string 	port;
 		int socket_fd;
 		std::vector<struct pollfd> poll_fds;
 		std::map<int, Client>  clients;
 		struct addrinfo hints, *res;
 		socklen_t	addr_size;
 	public:
-		Server(std::string Name, std::string Password, uint16_t Port);
+		Server(std::string Name, std::string Password, std::string Port);
 		~Server();
 		void Get_socket();
 		void acceptnewclient();

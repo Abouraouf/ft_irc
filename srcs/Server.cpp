@@ -2,7 +2,9 @@
 //handle the eof
 // do the destructor
 //handle the ctrl + c;
-Server::Server(std::string Name,std::string Password, uint16_t Port) : name(Name), password(Password), port(Port)
+
+
+Server::Server(std::string Name,std::string Password, std::string Port) : name(Name), password(Password), port(Port)
 {
 }
 void Server::Get_socket()
@@ -12,7 +14,7 @@ void Server::Get_socket()
 	hints.ai_socktype = SOCK_STREAM;
 	hints.ai_flags = AI_PASSIVE;
 	
-	if (getaddrinfo(NULL, "1234", &hints, &res) != 0)
+	if (getaddrinfo(NULL, port.c_str(), &hints, &res) != 0)
 		throw std::runtime_error(std::string("getaddrinfo failed"));
 	socket_fd = socket(res->ai_family, res->ai_socktype
 						, res->ai_protocol);
