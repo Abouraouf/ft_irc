@@ -14,20 +14,24 @@
 #include <csignal>           // signal(SIGPIPE, SIG_IGN)
 #include <exception>
  #include <stdio.h>
+ #include <cstdlib>
 #include "Client.hpp"
 
 class Server
 {
 	private:
+		std::string name;
+		std::string password;
+		uint16_t 	port;
 		int socket_fd;
 		std::vector<struct pollfd> poll_fds;
 		std::map<int, Client>  clients;
 		struct addrinfo hints, *res;
 		socklen_t	addr_size;
 	public:
-		Server();
+		Server(std::string Name, std::string Password, uint16_t Port);
+		~Server();
 		void Get_socket();
-		void error(int status);
 		void acceptnewclient();
 		void run();
 };

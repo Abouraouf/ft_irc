@@ -1,10 +1,12 @@
 #include "headers/Server.hpp"
 
-int main()
+int main(int ac, char *av[])
 {
+	if (ac != 3)
+		return 1;
 	try {
 
-		Server server;
+		Server server("ft_irc", av[2], std::atoi(av[1]));
 		server.Get_socket();
 		server.run();
 	}

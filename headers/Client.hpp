@@ -16,13 +16,12 @@
 
 class Client{
 	private:
-	int         fd;               
-    std::string recv_buffer;      
-    std::string send_buffer;      
-    
-    std::string nickname;          
+	int         fd;   
+    std::string recv_buffer;
+    std::string send_buffer;
+    std::string nickname;
     std::string username;
-    std::string realname;    
+    std::string realname;
     bool        registered;
 	public:
 		Client();

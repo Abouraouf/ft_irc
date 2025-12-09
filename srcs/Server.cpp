@@ -1,8 +1,10 @@
 #include "../headers/Server.hpp"
 //handle the eof
 // do the destructor
-Server::Server(){}
-
+//handle the ctrl + c;
+Server::Server(std::string Name,std::string Password, uint16_t Port) : name(Name), password(Password), port(Port)
+{
+}
 void Server::Get_socket()
 {
 	memset(&hints, 0, sizeof(hints));
@@ -56,7 +58,6 @@ void Server::run()
         if (poll_fds[0].revents & POLLIN) {
             acceptnewclient();
         }
-
         for (size_t i = 1; i < poll_fds.size(); ++i) {
 			if (poll_fds[i].revents & POLLIN) {
     		char buf[512];
@@ -71,9 +72,26 @@ void Server::run()
     		} else {
     		    buf[n] = '\0';
     		    std::cout << "Client " << fd << " sent: " << buf << std::endl;
-    		}
+    			}
 			}
         }
 		
     }
+}
+
+
+Server::~Server()
+{
+	for (std::map<int, Client>::iterator it = clients.begin(); it != clients.end(); it++)
+	{
+		close(it->first);
+	}
+	clients.clear();
+	if (socket_fd != -1)
+		close(socket_fd);
+	if (res != NULL){
+		freeaddrinfo(res);
+		res = NULL;
+	}
+	poll_fds.clear();
 }
